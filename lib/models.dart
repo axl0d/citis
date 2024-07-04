@@ -12,6 +12,20 @@ enum Agenda {
   user,
 }
 
+class EventTrack {
+  const EventTrack({
+    required this.hour,
+    this.track,
+    this.workshop,
+    this.workshops,
+  });
+
+  final String hour;
+  final String? track;
+  final Workshop? workshop;
+  final List<Workshop>? workshops;
+}
+
 class Workshop {
   const Workshop({
     required this.speaker,
