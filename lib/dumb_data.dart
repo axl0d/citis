@@ -12,8 +12,6 @@ const speaker6 =
 const speaker7 = Speaker(name: 'Dario Fernando Huilcapi Subia', degree: 'MSc');
 const speaker8 = Speaker(name: 'Héctor René Vega Carrillo', degree: 'Ph.D');
 
-const workshops = [];
-
 final jul17 = [
   const EventTrack(hour: "8:00", track: "Registration to the conference"),
   const EventTrack(

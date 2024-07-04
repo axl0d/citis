@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import '../dumb_data.dart';
 import '../models.dart';
@@ -15,7 +16,34 @@ class FullAgendaBody extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 32),
           child: _EventDayButtons(),
         ),
-        for (final workshop in workshops) _WorkshopCard(workshop: workshop)
+        for (final eventTrack in jul17) ...[
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(eventTrack.hour),
+            ),
+          ),
+          const Gap(8),
+          if (eventTrack.track != null) ...[
+            Card(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(eventTrack.track!),
+              ),
+            ),
+            const Gap(8),
+          ],
+          if (eventTrack.workshop != null) ...[
+            _WorkshopCard(workshop: eventTrack.workshop!),
+            const Gap(8),
+          ],
+          if (eventTrack.workshops != null)
+            for (final workshop in eventTrack.workshops!) ...[
+              _WorkshopCard(workshop: workshop),
+              const Gap(8),
+            ]
+        ]
       ],
     );
   }
