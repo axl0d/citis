@@ -131,16 +131,18 @@ class _WorkshopCard extends StatelessWidget {
           trailing: IconButton(
             visualDensity: VisualDensity.compact,
             icon: const Icon(Icons.arrow_forward_ios),
-            onPressed: () {},
+            onPressed: () => _navigateToDetail(context),
           ),
         ),
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => WorkshopDetailPage(workshop: workshop),
-          ),
-        ),
+        onTap: () => _navigateToDetail(context),
       ),
+    );
+  }
+
+  void _navigateToDetail(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => WorkshopDetailPage(workshop: workshop)),
     );
   }
 }
