@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../dump_data.dart';
+import '../dumb_data.dart';
 import '../models.dart';
 import '../pages/workshop_detail_page.dart';
 
