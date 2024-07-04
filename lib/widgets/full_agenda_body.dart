@@ -5,18 +5,31 @@ import '../dumb_data.dart';
 import '../models.dart';
 import '../pages/workshop_detail_page.dart';
 
-class FullAgendaBody extends StatelessWidget {
+const data = [jul17, jul18, jul17];
+
+class FullAgendaBody extends StatefulWidget {
   const FullAgendaBody({super.key});
+
+  @override
+  State<FullAgendaBody> createState() => _FullAgendaBodyState();
+}
+
+class _FullAgendaBodyState extends State<FullAgendaBody> {
+  List<EventTrack> _selectedData = data[0];
 
   @override
   Widget build(BuildContext context) {
     return SliverList.list(
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32),
-          child: _EventDayButtons(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: _EventDayButtons(
+            (selectedIndex) => setState(
+              () => _selectedData = data.elementAt(selectedIndex),
+            ),
+          ),
         ),
-        for (final eventTrack in jul17) ...[
+        for (final eventTrack in _selectedData) ...[
           Card(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -50,7 +63,9 @@ class FullAgendaBody extends StatelessWidget {
 }
 
 class _EventDayButtons extends StatefulWidget {
-  const _EventDayButtons();
+  const _EventDayButtons(this.onSelect);
+
+  final Function(int selectedIndex) onSelect;
 
   @override
   State<_EventDayButtons> createState() => _EventDayButtonsState();
@@ -86,6 +101,7 @@ class _EventDayButtonsState extends State<_EventDayButtons> {
       onSelectionChanged: (Set<int> newSelection) {
         setState(() {
           _selectedDay = newSelection.first;
+          widget.onSelect.call(_selectedDay);
         });
       },
     );
