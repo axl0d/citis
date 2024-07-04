@@ -14,47 +14,47 @@ const speaker7 = Speaker(name: 'Dario Fernando Huilcapi Subia', degree: 'MSc');
 const workshops = [
   Workshop(
     speaker: speaker1,
-    topic: Topic.sustainability,
+    topic: TechnicalTrack.sustainability,
     location: 'room B1',
     title:
         'Fermentation process and industrial waste upcycling by industrial microorganisms',
   ),
   Workshop(
     speaker: speaker2,
-    topic: Topic.industry,
+    topic: TechnicalTrack.industry,
     location: 'Computer Lab. A7 -  2nd floor building A',
     title:
         'Exploring Industrial and Commercial Microgrids: Regulation and Opportunities for the Energy Future',
   ),
   Workshop(
     speaker: speaker3,
-    topic: Topic.mobility,
+    topic: TechnicalTrack.mobility,
     location: 'Computer Lab. A4 -  2nd floor building A',
     title:
         'Estimation of pollutant emissions in real driving conditions using OBD, GPS data, and Machine Learning',
   ),
   Workshop(
     speaker: speaker4,
-    topic: Topic.infoTelecom,
+    topic: TechnicalTrack.infoTelecom,
     location: 'Computer Lab. A2 -  2nd floor building A',
     title: 'Creating data plots in Latex using the pgfplots package',
   ),
   Workshop(
     speaker: speaker5,
-    topic: Topic.industry,
+    topic: TechnicalTrack.industry,
     location: 'Computer Lab. A7 -  2nd floor building A',
     title: 'TICs: The future of learning',
   ),
   Workshop(
     speaker: speaker6,
-    topic: Topic.mobility,
+    topic: TechnicalTrack.mobility,
     location: 'Computer Lab. A4 -  2nd floor building A',
     title:
         'Dry cell electrolyzer design for HHO gas production: An alternative for Sustainable Mobility',
   ),
   Workshop(
     speaker: speaker7,
-    topic: Topic.infoTelecom,
+    topic: TechnicalTrack.infoTelecom,
     location: 'Computer Lab. A2 -  2nd floor building A',
     title:
         'Principles of information security and risk management to mitigate threats that commonly affect businesses',

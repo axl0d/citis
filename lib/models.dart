@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum Topic {
+enum TechnicalTrack {
   sustainability,
   industry,
   mobility,
@@ -21,7 +21,7 @@ class Workshop {
   });
 
   final Speaker speaker;
-  final Topic topic;
+  final TechnicalTrack topic;
   final String location;
   final String title;
 }
@@ -38,16 +38,16 @@ class Speaker {
   String get fullTitle => "$name, $degree";
 }
 
-extension TopicExtension on Topic {
+extension TopicExtension on TechnicalTrack {
   String get inSpanish {
     switch (this) {
-      case Topic.sustainability:
+      case TechnicalTrack.sustainability:
         return 'Sostenibilidad';
-      case Topic.industry:
+      case TechnicalTrack.industry:
         return 'Industria';
-      case Topic.mobility:
+      case TechnicalTrack.mobility:
         return 'Movilidad';
-      case Topic.infoTelecom:
+      case TechnicalTrack.infoTelecom:
         return 'Info Telecomunicaciones';
       default:
         return '';
@@ -56,13 +56,13 @@ extension TopicExtension on Topic {
 
   Color get color {
     switch (this) {
-      case Topic.sustainability:
+      case TechnicalTrack.sustainability:
         return Colors.green.shade300;
-      case Topic.industry:
+      case TechnicalTrack.industry:
         return Colors.blue.shade300;
-      case Topic.mobility:
+      case TechnicalTrack.mobility:
         return Colors.orange.shade300;
-      case Topic.infoTelecom:
+      case TechnicalTrack.infoTelecom:
         return Colors.purple.shade200;
       default:
         return Colors.grey;
