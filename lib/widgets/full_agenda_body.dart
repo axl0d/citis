@@ -10,47 +10,75 @@ class FullAgendaBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverList.list(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: SegmentedButton(
-            style: SegmentedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            selectedIcon: const Offstage(),
-            segments: const <ButtonSegment<int>>[
-              ButtonSegment(
-                value: 0,
-                label: Column(
-                  children: [
-                    Text("Julio"),
-                    Text("17"),
-                  ],
-                ),
-              ),
-              ButtonSegment(
-                  value: 1,
-                  label: Column(
-                    children: [
-                      Text("Julio"),
-                      Text("18"),
-                    ],
-                  )),
-              ButtonSegment(
-                value: 2,
-                label: Column(
-                  children: [
-                    Text("Julio"),
-                    Text("19"),
-                  ],
-                ),
-              ),
-            ],
-            selected: const <int>{0},
-          ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 32),
+          child: _EventDayButtons(),
         ),
         for (final workshop in workshops) _WorkshopCard(workshop: workshop)
+      ],
+    );
+  }
+}
+
+class _EventDayButtons extends StatefulWidget {
+  const _EventDayButtons();
+
+  @override
+  State<_EventDayButtons> createState() => _EventDayButtonsState();
+}
+
+class _EventDayButtonsState extends State<_EventDayButtons> {
+  int _selectedDay = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return SegmentedButton(
+      style: SegmentedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      selectedIcon: const Offstage(),
+      segments: const <ButtonSegment<int>>[
+        ButtonSegment(
+          value: 0,
+          label: _EventDayButtonItem(day: 17),
+        ),
+        ButtonSegment(
+          value: 1,
+          label: _EventDayButtonItem(day: 18),
+        ),
+        ButtonSegment(
+          value: 2,
+          label: _EventDayButtonItem(day: 19),
+        ),
+      ],
+      selected: <int>{_selectedDay},
+      onSelectionChanged: (Set<int> newSelection) {
+        setState(() {
+          _selectedDay = newSelection.first;
+        });
+      },
+    );
+  }
+}
+
+class _EventDayButtonItem extends StatelessWidget {
+  const _EventDayButtonItem({required this.day});
+
+  final int day;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("Julio"),
+        Text(
+          "$day",
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
       ],
     );
   }
