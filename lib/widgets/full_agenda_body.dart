@@ -117,7 +117,7 @@ class _EventDayButtonItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text("Julio"),
+        const Text("Julio"),
         Text(
           "$day",
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
