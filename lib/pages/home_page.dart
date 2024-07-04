@@ -11,17 +11,13 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+const bodies = [
+  Center(child: Text('Home')),
+  _AgendaView(),
+];
+
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-
-  final bodies = [
-    const Center(child: Text('Home')),
-    ListView(
-      children: <Widget>[
-        for (final workshop in workshops) _WorkshopCard(workshop: workshop)
-      ],
-    ),
-  ];
 
   void _onItemTapped(int index) {
     setState(() => _currentIndex = index);
@@ -49,6 +45,49 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _AgendaView extends StatelessWidget {
+  const _AgendaView();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        SegmentedButton(
+          selected: const <Agenda>{Agenda.full},
+          segments: const <ButtonSegment<Agenda>>[
+            ButtonSegment(
+              value: Agenda.full,
+              label: Text("Completa"),
+            ),
+            ButtonSegment(
+              value: Agenda.user,
+              label: Text("Mi agenda"),
+            ),
+          ],
+        ),
+        SegmentedButton(
+          segments: const <ButtonSegment<int>>[
+            ButtonSegment(
+              value: 0,
+              label: Text("27"),
+            ),
+            ButtonSegment(
+              value: 1,
+              label: Text("28"),
+            ),
+            ButtonSegment(
+              value: 2,
+              label: Text("29"),
+            ),
+          ],
+          selected: const <int>{0},
+        ),
+        for (final workshop in workshops) _WorkshopCard(workshop: workshop)
+      ],
     );
   }
 }
