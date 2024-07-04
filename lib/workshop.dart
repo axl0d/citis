@@ -33,6 +33,11 @@ enum Topic {
   infoTelecom,
 }
 
+enum Agenda {
+  full,
+  user,
+}
+
 extension TopicExtension on Topic {
   String get inSpanish {
     switch (this) {
