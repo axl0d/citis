@@ -12,9 +12,9 @@ const speaker6 =
 const speaker7 = Speaker(name: 'Dario Fernando Huilcapi Subia', degree: 'MSc');
 const speaker8 = Speaker(name: 'Héctor René Vega Carrillo', degree: 'Ph.D');
 
-final jul17 = [
-  const EventTrack(hour: "8:00", track: "Registration to the conference"),
-  const EventTrack(
+const jul17 = [
+  EventTrack(hour: "8:00", track: "Registration to the conference"),
+  EventTrack(
     hour: "09:00 - 13:00",
     workshops: [
       Workshop(
@@ -46,15 +46,15 @@ final jul17 = [
       ),
     ],
   ),
-  const EventTrack(
+  EventTrack(
     hour: "13:00",
     track: "Registration Bureau (hall next to the Aula Magna)",
   ),
-  const EventTrack(
+  EventTrack(
     hour: "13:00 - 14:00",
     track: "LUNCH - 6th floor",
   ),
-  const EventTrack(
+  EventTrack(
     hour: "14:00 - 18:00",
     workshops: [
       Workshop(
@@ -81,17 +81,17 @@ final jul17 = [
   ),
 ];
 
-final jul18 = [
-  const EventTrack(hour: "8:00", track: "Registration to the conference"),
-  const EventTrack(
+const jul18 = [
+  EventTrack(hour: "8:00", track: "Registration to the conference"),
+  EventTrack(
     hour: "09:00 - 17:00",
     track: "Feria de innovación tecnológica - Detras del aula magna",
   ),
-  const EventTrack(
+  EventTrack(
     hour: "09:30 - 10:30",
     track: "Inaugural ceremony - AULA MAGNA",
   ),
-  const EventTrack(
+  EventTrack(
     hour: "10:30 - 11:30",
     workshop: Workshop(
       speaker: speaker8,
@@ -100,7 +100,7 @@ final jul18 = [
       title: "Energy, Environment, and Society",
     ),
   ),
-  const EventTrack(
+  EventTrack(
     hour: "12:00 - 13:00",
     workshops: [
       Workshop(
@@ -125,15 +125,15 @@ final jul18 = [
       ),
     ],
   ),
-  const EventTrack(
+  EventTrack(
     hour: "13:00",
     track: "Registration Bureau (hall next to the Aula Magna)",
   ),
-  const EventTrack(
+  EventTrack(
     hour: "13:00 - 14:00",
     track: "LUNCH - 6th floor",
   ),
-  const EventTrack(
+  EventTrack(
     hour: "14:00 - 18:00",
     workshops: [
       Workshop(
