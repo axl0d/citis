@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Workshop {
   const Workshop({
     required this.speaker,
@@ -20,6 +22,8 @@ class Speaker {
 
   final String name;
   final String degree;
+
+  String get fullTitle => "$name, $degree";
 }
 
 enum Topic {
@@ -27,6 +31,38 @@ enum Topic {
   industry,
   mobility,
   infoTelecom,
+}
+
+extension TopicExtension on Topic {
+  String get inSpanish {
+    switch (this) {
+      case Topic.sustainability:
+        return 'Sostenibilidad';
+      case Topic.industry:
+        return 'Industria';
+      case Topic.mobility:
+        return 'Movilidad';
+      case Topic.infoTelecom:
+        return 'Info Telecomunicaciones';
+      default:
+        return '';
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case Topic.sustainability:
+        return Colors.green.shade300;
+      case Topic.industry:
+        return Colors.blue.shade300;
+      case Topic.mobility:
+        return Colors.orange.shade300;
+      case Topic.infoTelecom:
+        return Colors.purple.shade200;
+      default:
+        return Colors.grey;
+    }
+  }
 }
 
 const speaker1 =
