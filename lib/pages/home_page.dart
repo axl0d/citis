@@ -1,8 +1,8 @@
 import 'package:citis/main.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/full_agenda_body.dart';
 import '../workshop.dart';
-import 'workshop_detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -54,95 +54,25 @@ class _AgendaView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        SegmentedButton(
-          selected: const <Agenda>{Agenda.full},
-          segments: const <ButtonSegment<Agenda>>[
-            ButtonSegment(
-              value: Agenda.full,
-              label: Text("Completa"),
-            ),
-            ButtonSegment(
-              value: Agenda.user,
-              label: Text("Mi agenda"),
-            ),
-          ],
-        ),
-        SegmentedButton(
-          segments: const <ButtonSegment<int>>[
-            ButtonSegment(
-              value: 0,
-              label: Text("27"),
-            ),
-            ButtonSegment(
-              value: 1,
-              label: Text("28"),
-            ),
-            ButtonSegment(
-              value: 2,
-              label: Text("29"),
-            ),
-          ],
-          selected: const <int>{0},
-        ),
-        for (final workshop in workshops) _WorkshopCard(workshop: workshop)
-      ],
-    );
-  }
-}
-
-class _WorkshopCard extends StatelessWidget {
-  const _WorkshopCard({
-    required this.workshop,
-  });
-
-  final Workshop workshop;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        child: ListTile(
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Workshop',
-                style: TextStyle(fontWeight: FontWeight.bold),
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverToBoxAdapter(
+          child: SegmentedButton(
+            selected: const <Agenda>{Agenda.full},
+            segments: const <ButtonSegment<Agenda>>[
+              ButtonSegment(
+                value: Agenda.full,
+                label: Text("Completa"),
               ),
-              Text(workshop.title),
+              ButtonSegment(
+                value: Agenda.user,
+                label: Text("Mi agenda"),
+              ),
             ],
           ),
-          subtitle: RichText(
-            text: TextSpan(
-              children: [
-                const TextSpan(
-                  text: 'Ponente:',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const WidgetSpan(child: SizedBox(width: 4)),
-                TextSpan(text: workshop.speaker.fullTitle),
-              ],
-              style: const TextStyle(color: Colors.black),
-            ),
-          ),
-          trailing: IconButton(
-            visualDensity: VisualDensity.compact,
-            icon: const Icon(Icons.arrow_forward_ios),
-            onPressed: () => _navigateToDetail(context),
-          ),
         ),
-        onTap: () => _navigateToDetail(context),
-      ),
-    );
-  }
-
-  void _navigateToDetail(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => WorkshopDetailPage(workshop: workshop)),
+        const FullAgendaBody(),
+      ],
     );
   }
 }
