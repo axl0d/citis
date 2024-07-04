@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+enum Topic {
+  sustainability,
+  industry,
+  mobility,
+  infoTelecom,
+}
+
+enum Agenda {
+  full,
+  user,
+}
+
 class Workshop {
   const Workshop({
     required this.speaker,
@@ -24,18 +36,6 @@ class Speaker {
   final String degree;
 
   String get fullTitle => "$name, $degree";
-}
-
-enum Topic {
-  sustainability,
-  industry,
-  mobility,
-  infoTelecom,
-}
-
-enum Agenda {
-  full,
-  user,
 }
 
 extension TopicExtension on Topic {

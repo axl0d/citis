@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../workshop.dart';
+import '../models.dart';
 
 class WorkshopDetailPage extends StatelessWidget {
   const WorkshopDetailPage({

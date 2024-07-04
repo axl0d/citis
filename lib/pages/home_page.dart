@@ -1,8 +1,8 @@
 import 'package:citis/main.dart';
 import 'package:flutter/material.dart';
 
+import '../models.dart';
 import '../widgets/full_agenda_body.dart';
-import '../workshop.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

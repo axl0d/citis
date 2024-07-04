@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../models.dart';
 import '../pages/workshop_detail_page.dart';
-import '../workshop.dart';
 
 class FullAgendaBody extends StatelessWidget {
   const FullAgendaBody({super.key});
