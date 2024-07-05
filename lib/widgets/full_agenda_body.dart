@@ -36,7 +36,7 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
           children: [
             for (final eventTrack in _selectedData) ...[
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: DecoratedBox(
                   decoration: const BoxDecoration(color: Colors.white),
                   child: Padding(
@@ -50,27 +50,36 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
               ),
               const Gap(8),
               if (eventTrack.track != null) ...[
-                Card(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(eventTrack.track!),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Card(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(eventTrack.track!),
+                    ),
                   ),
                 ),
                 const Gap(8),
               ],
               if (eventTrack.workshop != null) ...[
-                _WorkshopCard(
-                  key: Key("workshop ${eventTrack.workshop!.title}"),
-                  workshop: eventTrack.workshop!,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _WorkshopCard(
+                    key: Key("workshop ${eventTrack.workshop!.title}"),
+                    workshop: eventTrack.workshop!,
+                  ),
                 ),
                 const Gap(8),
               ],
               if (eventTrack.workshops != null)
                 for (final workshop in eventTrack.workshops!) ...[
-                  _WorkshopCard(
-                    key: Key("workshop ${workshop.title}"),
-                    workshop: workshop,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: _WorkshopCard(
+                      key: Key("workshop ${workshop.title}"),
+                      workshop: workshop,
+                    ),
                   ),
                   const Gap(8),
                 ]
