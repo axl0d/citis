@@ -19,58 +19,64 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList.list(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: _EventDayButtons(
-            (selectedIndex) => setState(
-              () => _selectedData = data.elementAt(selectedIndex),
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: _EventDayButtons(
+              (selectedIndex) => setState(
+                () => _selectedData = data.elementAt(selectedIndex),
+              ),
             ),
           ),
         ),
-        const Gap(8),
-        for (final eventTrack in _selectedData) ...[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: DecoratedBox(
-              decoration: const BoxDecoration(color: Colors.white),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 16,
+        const SliverGap(8),
+        SliverList.list(
+          children: [
+            for (final eventTrack in _selectedData) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: DecoratedBox(
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 16,
+                    ),
+                    child: Text(eventTrack.hour),
+                  ),
                 ),
-                child: Text(eventTrack.hour),
-              ),
-            ),
-          ),
-          const Gap(8),
-          if (eventTrack.track != null) ...[
-            Card(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(eventTrack.track!),
-              ),
-            ),
-            const Gap(8),
-          ],
-          if (eventTrack.workshop != null) ...[
-            _WorkshopCard(
-              key: Key("workshop ${eventTrack.workshop!.title}"),
-              workshop: eventTrack.workshop!,
-            ),
-            const Gap(8),
-          ],
-          if (eventTrack.workshops != null)
-            for (final workshop in eventTrack.workshops!) ...[
-              _WorkshopCard(
-                key: Key("workshop ${workshop.title}"),
-                workshop: workshop,
               ),
               const Gap(8),
+              if (eventTrack.track != null) ...[
+                Card(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(eventTrack.track!),
+                  ),
+                ),
+                const Gap(8),
+              ],
+              if (eventTrack.workshop != null) ...[
+                _WorkshopCard(
+                  key: Key("workshop ${eventTrack.workshop!.title}"),
+                  workshop: eventTrack.workshop!,
+                ),
+                const Gap(8),
+              ],
+              if (eventTrack.workshops != null)
+                for (final workshop in eventTrack.workshops!) ...[
+                  _WorkshopCard(
+                    key: Key("workshop ${workshop.title}"),
+                    workshop: workshop,
+                  ),
+                  const Gap(8),
+                ]
             ]
-        ]
+          ],
+        )
       ],
     );
   }

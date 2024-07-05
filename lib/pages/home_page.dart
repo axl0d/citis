@@ -1,8 +1,9 @@
 import 'package:citis/main.dart';
+import 'package:citis/widgets/full_agenda_body.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import '../models.dart';
-import '../widgets/full_agenda_body.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -48,30 +49,56 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class _AgendaView extends StatelessWidget {
+class _AgendaView extends StatefulWidget {
   const _AgendaView();
 
   @override
+  State<_AgendaView> createState() => _AgendaViewState();
+}
+
+class _AgendaViewState extends State<_AgendaView>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(vsync: this, length: 2);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverToBoxAdapter(
-          child: SegmentedButton(
-            selected: const <Agenda>{Agenda.full},
-            segments: const <ButtonSegment<Agenda>>[
-              ButtonSegment(
-                value: Agenda.full,
-                label: Text("Completa"),
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        children: [
+          TabBar(
+            controller: tabController,
+            tabs: const [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Completa'),
               ),
-              ButtonSegment(
-                value: Agenda.user,
-                label: Text("Mi agenda"),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Mi agenda'),
               ),
             ],
           ),
-        ),
-        const FullAgendaBody(),
-      ],
+          const Gap(8),
+          Expanded(
+            child: TabBarView(
+              controller: tabController,
+              children: const [
+                FullAgendaBody(),
+                Center(
+                  child: Text("No hay workshops agregados"),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
