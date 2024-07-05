@@ -42,12 +42,13 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: background,
         selectedIndex: _currentIndex,
         onDestinationSelected: _onItemTapped,
-        destinations: const [
+        indicatorShape: const CircleBorder(),
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.home_outlined),
+            icon: SvgPicture.asset("assets/svg/ic_home.svg"),
             label: 'Inicio',
           ),
-          NavigationDestination(
+          const NavigationDestination(
             icon: Icon(Icons.calendar_month_outlined),
             label: 'Agenda',
           ),
