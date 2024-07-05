@@ -29,11 +29,19 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
             ),
           ),
         ),
+        const Gap(8),
         for (final eventTrack in _selectedData) ...[
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(eventTrack.hour),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: DecoratedBox(
+              decoration: const BoxDecoration(color: Colors.white),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16,
+                ),
+                child: Text(eventTrack.hour),
+              ),
             ),
           ),
           const Gap(8),
@@ -48,12 +56,18 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
             const Gap(8),
           ],
           if (eventTrack.workshop != null) ...[
-            _WorkshopCard(workshop: eventTrack.workshop!),
+            _WorkshopCard(
+              key: Key("workshop ${eventTrack.workshop!.title}"),
+              workshop: eventTrack.workshop!,
+            ),
             const Gap(8),
           ],
           if (eventTrack.workshops != null)
             for (final workshop in eventTrack.workshops!) ...[
-              _WorkshopCard(workshop: workshop),
+              _WorkshopCard(
+                key: Key("workshop ${workshop.title}"),
+                workshop: workshop,
+              ),
               const Gap(8),
             ]
         ]
@@ -131,6 +145,7 @@ class _EventDayButtonItem extends StatelessWidget {
 
 class _WorkshopCard extends StatelessWidget {
   const _WorkshopCard({
+    required super.key,
     required this.workshop,
   });
 
@@ -140,35 +155,25 @@ class _WorkshopCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAlias,
+      color: Colors.white,
       child: InkWell(
-        child: ListTile(
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Workshop',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(workshop.title),
-            ],
-          ),
-          subtitle: RichText(
-            text: TextSpan(
+        child: Dismissible(
+          key: key!,
+          child: ListTile(
+            title: Text(workshop.title),
+            subtitle: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TextSpan(
-                  text: 'Ponente:',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                const Icon(Icons.person_outlined),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: Text(
+                    workshop.speaker.fullTitle,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                 ),
-                const WidgetSpan(child: SizedBox(width: 4)),
-                TextSpan(text: workshop.speaker.fullTitle),
               ],
-              style: const TextStyle(color: Colors.black),
             ),
-          ),
-          trailing: IconButton(
-            visualDensity: VisualDensity.compact,
-            icon: const Icon(Icons.arrow_forward_ios),
-            onPressed: () => _navigateToDetail(context),
           ),
         ),
         onTap: () => _navigateToDetail(context),
