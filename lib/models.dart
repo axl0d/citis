@@ -36,6 +36,20 @@ class EventTrack {
   final List<Workshop>? workshops;
 }
 
+class EventDay {
+  const EventDay({
+    required this.day,
+    required this.weekday,
+    required this.month,
+  });
+
+  final int day;
+  final String weekday;
+  final String month;
+
+  String get weekdayMin => weekday.substring(0, 3);
+}
+
 class Workshop {
   const Workshop({
     required this.speaker,

@@ -12,6 +12,12 @@ const speaker6 =
 const speaker7 = Speaker(name: 'Dario Fernando Huilcapi Subia', degree: 'MSc');
 const speaker8 = Speaker(name: 'Héctor René Vega Carrillo', degree: 'Ph.D');
 
+const eventDays = [
+  EventDay(day: 17, weekday: "Miércoles", month: "Julio"),
+  EventDay(day: 18, weekday: "Jueves", month: "Julio"),
+  EventDay(day: 19, weekday: "Viernes", month: "Julio"),
+];
+
 const jul17 = [
   EventTrack(hour: "8:00", track: "Registration to the conference"),
   EventTrack(

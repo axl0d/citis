@@ -22,7 +22,7 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
     return SliverList.list(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: _EventDayButtons(
             (selectedIndex) => setState(
               () => _selectedData = data.elementAt(selectedIndex),
@@ -90,55 +90,74 @@ class _EventDayButtonsState extends State<_EventDayButtons> {
 
   @override
   Widget build(BuildContext context) {
-    return SegmentedButton(
-      style: SegmentedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-      selectedIcon: const Offstage(),
-      segments: const <ButtonSegment<int>>[
-        ButtonSegment(
-          value: 0,
-          label: _EventDayButtonItem(day: 17),
-        ),
-        ButtonSegment(
-          value: 1,
-          label: _EventDayButtonItem(day: 18),
-        ),
-        ButtonSegment(
-          value: 2,
-          label: _EventDayButtonItem(day: 19),
-        ),
+    return Wrap(
+      children: [
+        for (var i = 0; i < eventDays.length; i++)
+          _EventDayButtonItem(
+            index: i,
+            selectedIndex: _selectedDay,
+            eventDay: eventDays[i],
+            onTap: (selectedDay) {
+              setState(() => _selectedDay = selectedDay);
+              widget.onSelect(i);
+            },
+          ),
       ],
-      selected: <int>{_selectedDay},
-      onSelectionChanged: (Set<int> newSelection) {
-        setState(() {
-          _selectedDay = newSelection.first;
-          widget.onSelect.call(_selectedDay);
-        });
-      },
     );
   }
 }
 
 class _EventDayButtonItem extends StatelessWidget {
-  const _EventDayButtonItem({required this.day});
+  const _EventDayButtonItem({
+    required this.index,
+    required this.selectedIndex,
+    required this.eventDay,
+    required this.onTap,
+  });
 
-  final int day;
+  final int index;
+  final int selectedIndex;
+  final EventDay eventDay;
+  final Function(int selectedIndex) onTap;
+
+  bool get _isSelected => index == selectedIndex;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Text("Julio"),
-        Text(
-          "$day",
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+    final textTheme = Theme.of(context).textTheme;
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+        side: BorderSide(
+          color: _isSelected ? primary : Colors.white,
+          width: 1.5,
         ),
-      ],
+      ),
+      child: InkWell(
+        onTap: () => onTap.call(index),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: [
+              Text(
+                eventDay.weekdayMin,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: _isSelected ? primary : null,
+                ),
+              ),
+              const Gap(8),
+              Text(
+                "${eventDay.day}",
+                style: textTheme.headlineSmall?.copyWith(
+                  color: _isSelected ? primary : null,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
