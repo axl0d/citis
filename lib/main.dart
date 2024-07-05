@@ -1,3 +1,4 @@
+import 'package:citis/models.dart';
 import 'package:citis/pages/sign_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: appName,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: primary,
+          primary: primary,
+          onPrimary: background,
+          primaryContainer: backgroundContainer,
+          secondary: secondary,
+          tertiary: tertiary,
+          surface: background,
+        ),
         useMaterial3: true,
       ),
       home: const SignPage(),
