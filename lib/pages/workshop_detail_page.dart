@@ -18,7 +18,10 @@ class WorkshopDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Workshop"),
         centerTitle: true,
-        leading: const Icon(Icons.arrow_back_ios_new),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
