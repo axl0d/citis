@@ -1,5 +1,6 @@
 import 'package:citis/widgets/full_agenda_body.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 import '../models.dart';
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.filter_alt_outlined),
+            icon: SvgPicture.asset("assets/svg/ic_filter.svg"),
           ),
         ],
       ),
