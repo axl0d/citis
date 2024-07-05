@@ -1,4 +1,3 @@
-import 'package:citis/main.dart';
 import 'package:citis/widgets/full_agenda_body.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -28,7 +27,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: background,
-      appBar: AppBar(title: const Text(appName)),
+      appBar: AppBar(
+        leading: Image.asset("assets/logo_tiny.png"),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.filter_alt_outlined),
+          ),
+        ],
+      ),
       body: bodies.elementAt(_currentIndex),
       bottomNavigationBar: NavigationBar(
         backgroundColor: background,
