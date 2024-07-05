@@ -8,6 +8,7 @@ const backgroundContainer = Color(0xFFFFD9E2);
 const r2 = Color(0xFF9C1129);
 const r3 = Color(0xFFFA1742);
 const grey = Color(0xFFDCDCDC);
+const bodyText = Color(0xFF162113);
 
 enum TechnicalTrack {
   sustainability,
