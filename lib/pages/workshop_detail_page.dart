@@ -68,22 +68,25 @@ class WorkshopDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Icon(
                           Icons.location_on_outlined,
                           size: 32,
                         ),
                         const Gap(4),
-                        Text(
-                          workshop.location,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(color: bodyText),
+                        Expanded(
+                          child: Text(
+                            workshop.location,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(color: bodyText),
+                          ),
                         ),
                       ],
                     ),
-                    const Gap(16),
+                    const Gap(8),
                     Row(
                       children: [
                         const Icon(Icons.calendar_month_outlined),
