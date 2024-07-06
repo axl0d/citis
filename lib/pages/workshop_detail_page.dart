@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../models.dart';
 import '../theme.dart';
@@ -17,7 +18,10 @@ class WorkshopDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: background,
       appBar: AppBar(
-        title: const Text("Workshop"),
+        title: Text(
+          "Workshop",
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
@@ -31,7 +35,7 @@ class WorkshopDetailPage extends StatelessWidget {
           children: [
             Text(
               workshop.title,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const Gap(4),
             Row(
@@ -43,9 +47,10 @@ class WorkshopDetailPage extends StatelessWidget {
                 const SizedBox(width: 4),
                 Text(
                   workshop.speaker.fullTitle,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: r2,
-                      ),
+                  style: GoogleFonts.cormorant(
+                    fontSize: 18,
+                    color: r2,
+                  ),
                 ),
               ],
             ),
@@ -82,10 +87,7 @@ class WorkshopDetailPage extends StatelessWidget {
                         Expanded(
                           child: Text(
                             workshop.location,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(color: bodyText),
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
                       ],
@@ -131,7 +133,7 @@ class WorkshopDetailPage extends StatelessWidget {
                             workshop.topic.inSpanish.toUpperCase(),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyLarge
+                                .titleSmall
                                 ?.copyWith(color: primary),
                           ),
                         ),

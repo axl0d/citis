@@ -38,7 +38,7 @@ class CitisTextTheme extends TextTheme {
           ),
           headlineMedium: GoogleFonts.cormorant(
             fontWeight: FontWeight.w700,
-            fontSize: 18,
+            fontSize: 24,
             color: bodyText,
           ),
           headlineSmall: GoogleFonts.montserrat(
