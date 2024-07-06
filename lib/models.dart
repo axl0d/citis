@@ -1,15 +1,5 @@
 import 'package:flutter/material.dart';
 
-const primary = Color(0xFFC9224B);
-const secondary = Color(0xFF4E4E4E);
-const tertiary = Color(0xFF131313);
-const background = Color(0xFFF2F2F2);
-const backgroundContainer = Color(0xFFFFD9E2);
-const r2 = Color(0xFF9C1129);
-const r3 = Color(0xFFFA1742);
-const grey = Color(0xFFDCDCDC);
-const bodyText = Color(0xFF162113);
-
 enum TechnicalTrack {
   sustainability,
   industry,

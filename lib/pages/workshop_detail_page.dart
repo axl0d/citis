@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../models.dart';
+import '../theme.dart';
 
 class WorkshopDetailPage extends StatelessWidget {
   const WorkshopDetailPage({

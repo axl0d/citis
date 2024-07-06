@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import '../dumb_data.dart';
 import '../models.dart';
 import '../pages/workshop_detail_page.dart';
+import '../theme.dart';
 
 const data = [jul17, jul18, jul17];
 
