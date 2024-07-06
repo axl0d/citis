@@ -83,14 +83,20 @@ class _AgendaViewState extends State<_AgendaView>
         children: [
           TabBar(
             controller: tabController,
-            tabs: const [
+            tabs: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Completa'),
+                child: Text(
+                  'Completa',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Mi agenda'),
+                child: Text(
+                  'Mi agenda',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
               ),
             ],
           ),
