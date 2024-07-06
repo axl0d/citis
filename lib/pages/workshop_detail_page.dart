@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -61,7 +62,10 @@ class WorkshopDetailPage extends StatelessWidget {
                 foregroundColor: Colors.white,
               ),
               iconAlignment: IconAlignment.end,
-              icon: const Icon(Icons.edit_calendar_outlined),
+              icon: SvgPicture.asset(
+                "assets/svg/ic_add_calendar.svg",
+                color: Colors.white,
+              ),
               label: const Text("Añadir a mi calendario"),
               onPressed: () {},
             ),
