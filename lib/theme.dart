@@ -21,10 +21,10 @@ class CitisColorScheme extends ColorScheme {
           onSecondary: background,
           tertiary: tertiary,
           surface: background,
-          onSurface: background,
-          brightness: Brightness.light,
+          onSurface: primary,
           error: r3,
           onError: r3,
+          brightness: Brightness.light,
         );
 }
 
@@ -34,22 +34,27 @@ class CitisTextTheme extends TextTheme {
           headlineLarge: GoogleFonts.cormorant(
             fontWeight: FontWeight.bold,
             fontSize: 22,
+            color: bodyText,
           ),
           headlineMedium: GoogleFonts.cormorant(
             fontWeight: FontWeight.w700,
             fontSize: 18,
+            color: bodyText,
           ),
           headlineSmall: GoogleFonts.montserrat(
             fontWeight: FontWeight.w700,
             fontSize: 16,
-          ),
-          bodyMedium: GoogleFonts.montserrat(
-            fontWeight: FontWeight.normal,
-            fontSize: 15,
+            color: bodyText,
           ),
           titleSmall: GoogleFonts.montserrat(
             fontWeight: FontWeight.normal,
             fontSize: 14,
+            color: bodyText,
+          ),
+          bodyMedium: GoogleFonts.montserrat(
+            fontWeight: FontWeight.normal,
+            fontSize: 15,
+            color: bodyText,
           ),
         );
 }
