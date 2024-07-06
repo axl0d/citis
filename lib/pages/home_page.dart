@@ -1,3 +1,4 @@
+import 'package:citis/models.dart';
 import 'package:citis/widgets/full_agenda_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -32,7 +33,12 @@ class _HomePageState extends State<HomePage> {
         leading: Image.asset("assets/logo_tiny.png"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => showDialog<void>(
+              context: context,
+              builder: (_) => const Dialog.fullscreen(
+                child: _FilterScreen(),
+              ),
+            ),
             icon: SvgPicture.asset("assets/svg/ic_filter.svg"),
           ),
         ],
@@ -52,6 +58,53 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.calendar_month_outlined),
             label: 'Agenda',
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FilterScreen extends StatelessWidget {
+  const _FilterScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Filter",
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              "Topic",
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          ),
+          const Gap(8),
+          for (final tracks in TechnicalTrack.values) ...[
+            CheckboxListTile(
+              visualDensity: VisualDensity.compact,
+              controlAffinity: ListTileControlAffinity.leading,
+              value: false,
+              onChanged: (_) {},
+              title: Text(
+                tracks.inSpanish,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
+            const Gap(8),
+          ],
         ],
       ),
     );
