@@ -45,12 +45,18 @@ class _HomeView extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  color: primary,
-                  child: Image.asset("assets/white_ups_logo.png"),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset(
+                    "assets/images/in_site_1.JPG",
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Card(
-                  color: primary,
-                  child: Image.asset("assets/white_ups_logo.png"),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset(
+                    "assets/images/in_site_2.JPG",
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Card(
                   color: r3,
