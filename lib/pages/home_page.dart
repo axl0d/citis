@@ -1,11 +1,11 @@
-import 'package:citis/dumb_data.dart';
 import 'package:citis/models.dart';
-import 'package:citis/widgets/full_agenda_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 import '../theme.dart';
+import '../widgets/agenda_view.dart';
+import '../widgets/home_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,115 +15,9 @@ class HomePage extends StatefulWidget {
 }
 
 const bodies = [
-  _HomeView(),
-  _AgendaView(),
+  HomeView(),
+  AgendaView(),
 ];
-
-class _HomeView extends StatelessWidget {
-  const _HomeView();
-
-  @override
-  Widget build(BuildContext context) {
-    final workshops = jul17[1].workshops!;
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Gap(8),
-          SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.5,
-            child: GridView(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              children: [
-                Card(
-                  color: r2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Image.asset("assets/white_ups_logo.png"),
-                  ),
-                ),
-                Card(
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "assets/images/in_site_1.JPG",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Card(
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "assets/images/in_site_2.JPG",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Card(
-                  color: r3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Image.asset("assets/logo.png"),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 8,
-            ),
-            child: Text(
-              "Next Session",
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ),
-          const Divider(),
-          for (final workshop in workshops) ...[
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: NextSessionItem(workshop: workshop),
-            ),
-            const Divider(),
-          ]
-        ],
-      ),
-    );
-  }
-}
-
-class NextSessionItem extends StatelessWidget {
-  const NextSessionItem({
-    super.key,
-    required this.workshop,
-  });
-
-  final Workshop workshop;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(workshop.title),
-        const Gap(8),
-        Text(workshop.speakersFlat),
-        const Gap(8),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Jul 17",
-            ),
-            Text(
-              "Salon 123",
-            ),
-          ],
-        )
-      ],
-    );
-  }
-}
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
@@ -230,66 +124,6 @@ class _FilterScreen extends StatelessWidget {
             child: TextButton(
               onPressed: () {},
               child: const Text("Clear"),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _AgendaView extends StatefulWidget {
-  const _AgendaView();
-
-  @override
-  State<_AgendaView> createState() => _AgendaViewState();
-}
-
-class _AgendaViewState extends State<_AgendaView>
-    with SingleTickerProviderStateMixin {
-  late TabController tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    tabController = TabController(vsync: this, length: 2);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Column(
-        children: [
-          TabBar(
-            controller: tabController,
-            tabs: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Completa',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Mi agenda',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
-            ],
-          ),
-          const Gap(8),
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: const [
-                FullAgendaBody(),
-                Center(
-                  child: Text("No hay workshops agregados"),
-                )
-              ],
             ),
           ),
         ],
