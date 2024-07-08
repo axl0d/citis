@@ -199,9 +199,9 @@ class _WorkshopCard extends StatelessWidget {
             subtitle: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                workshop.speakers.length > 1
-                    ? const Icon(Icons.people_alt_outlined)
-                    : const Icon(Icons.person_outlined),
+                Icon(workshop.speakers.length > 1
+                    ? Icons.people_alt_outlined
+                    : Icons.person_outlined),
                 const SizedBox(width: 4),
                 Expanded(
                   child: Text(

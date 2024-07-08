@@ -41,8 +41,10 @@ class WorkshopDetailPage extends StatelessWidget {
             const Gap(4),
             Row(
               children: [
-                const Icon(
-                  Icons.person_outlined,
+                Icon(
+                  workshop.speakers.length > 1
+                      ? Icons.people_alt_outlined
+                      : Icons.person_outlined,
                   color: r2,
                 ),
                 const SizedBox(width: 4),
