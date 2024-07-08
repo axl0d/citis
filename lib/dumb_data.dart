@@ -24,28 +24,28 @@ const jul17 = [
     hour: "09:00 - 13:00",
     workshops: [
       Workshop(
-        speaker: speaker1,
+        speakers: [speaker1],
         topic: TechnicalTrack.sustainability,
         location: 'room B1',
         title:
             'Fermentation process and industrial waste upcycling by industrial microorganisms',
       ),
       Workshop(
-        speaker: speaker2,
+        speakers: [speaker2],
         topic: TechnicalTrack.industry,
         location: 'Computer Lab. A7 -  2nd floor building A',
         title:
             'Exploring Industrial and Commercial Microgrids: Regulation and Opportunities for the Energy Future',
       ),
       Workshop(
-        speaker: speaker3,
+        speakers: [speaker3],
         topic: TechnicalTrack.mobility,
         location: 'Computer Lab. A4 -  2nd floor building A',
         title:
             'Estimation of pollutant emissions in real driving conditions using OBD, GPS data, and Machine Learning',
       ),
       Workshop(
-        speaker: speaker4,
+        speakers: [speaker4],
         topic: TechnicalTrack.infoTelecom,
         location: 'Computer Lab. A2 -  2nd floor building A',
         title: 'Creating data plots in Latex using the pgfplots package',
@@ -64,20 +64,20 @@ const jul17 = [
     hour: "14:00 - 18:00",
     workshops: [
       Workshop(
-        speaker: speaker5,
+        speakers: [speaker5],
         topic: TechnicalTrack.industry,
         location: 'Computer Lab. A7 -  2nd floor building A',
         title: 'TICs: The future of learning',
       ),
       Workshop(
-        speaker: speaker6,
+        speakers: [speaker6],
         topic: TechnicalTrack.mobility,
         location: 'Computer Lab. A4 -  2nd floor building A',
         title:
             'Dry cell electrolyzer design for HHO gas production: An alternative for Sustainable Mobility',
       ),
       Workshop(
-        speaker: speaker7,
+        speakers: [speaker7],
         topic: TechnicalTrack.infoTelecom,
         location: 'Computer Lab. A2 -  2nd floor building A',
         title:
@@ -100,7 +100,7 @@ const jul18 = [
   EventTrack(
     hour: "10:30 - 11:30",
     workshop: Workshop(
-      speaker: speaker8,
+      speakers: [speaker8],
       topic: TechnicalTrack.industry,
       location: "AULA MAGNA",
       title: "Energy, Environment, and Society",
@@ -110,20 +110,20 @@ const jul18 = [
     hour: "12:00 - 13:00",
     workshops: [
       Workshop(
-        speaker: speaker5,
+        speakers: [speaker5],
         topic: TechnicalTrack.industry,
         location: 'Computer Lab. A7 -  2nd floor building A',
         title: 'TICs: The future of learning',
       ),
       Workshop(
-        speaker: speaker6,
+        speakers: [speaker6],
         topic: TechnicalTrack.mobility,
         location: 'Computer Lab. A4 -  2nd floor building A',
         title:
             'Dry cell electrolyzer design for HHO gas production: An alternative for Sustainable Mobility',
       ),
       Workshop(
-        speaker: speaker7,
+        speakers: [speaker7],
         topic: TechnicalTrack.infoTelecom,
         location: 'Computer Lab. A2 -  2nd floor building A',
         title:
@@ -143,20 +143,20 @@ const jul18 = [
     hour: "14:00 - 18:00",
     workshops: [
       Workshop(
-        speaker: speaker5,
+        speakers: [speaker5],
         topic: TechnicalTrack.industry,
         location: 'Computer Lab. A7 -  2nd floor building A',
         title: 'TICs: The future of learning',
       ),
       Workshop(
-        speaker: speaker6,
+        speakers: [speaker6],
         topic: TechnicalTrack.mobility,
         location: 'Computer Lab. A4 -  2nd floor building A',
         title:
             'Dry cell electrolyzer design for HHO gas production: An alternative for Sustainable Mobility',
       ),
       Workshop(
-        speaker: speaker7,
+        speakers: [speaker7],
         topic: TechnicalTrack.infoTelecom,
         location: 'Computer Lab. A2 -  2nd floor building A',
         title:

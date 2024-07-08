@@ -47,7 +47,7 @@ class WorkshopDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  workshop.speaker.fullTitle,
+                  workshop.speakersFlat,
                   style: GoogleFonts.cormorant(
                     fontSize: 18,
                     color: r2,

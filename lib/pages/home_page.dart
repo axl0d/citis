@@ -107,9 +107,7 @@ class NextSessionItem extends StatelessWidget {
       children: [
         Text(workshop.title),
         const Gap(8),
-        Text(
-          workshop.speaker.fullTitle,
-        ),
+        Text(workshop.speakersFlat),
         const Gap(8),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -42,16 +42,19 @@ class EventDay {
 
 class Workshop {
   const Workshop({
-    required this.speaker,
+    required this.speakers,
     required this.topic,
     required this.location,
     required this.title,
   });
 
-  final Speaker speaker;
+  final List<Speaker> speakers;
   final TechnicalTrack topic;
   final String location;
   final String title;
+
+  String get speakersFlat =>
+      speakers.map((speaker) => speaker.fullTitle).join(",");
 }
 
 class Speaker {
