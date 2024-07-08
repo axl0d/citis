@@ -6,7 +6,7 @@ import '../models.dart';
 import '../pages/workshop_detail_page.dart';
 import '../theme.dart';
 
-const data = [jul17, jul18, jul17];
+const data = [jul17, jul18, jul19];
 
 class FullAgendaBody extends StatefulWidget {
   const FullAgendaBody({super.key});
@@ -199,7 +199,9 @@ class _WorkshopCard extends StatelessWidget {
             subtitle: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.person_outlined),
+                workshop.speakers.length > 1
+                    ? const Icon(Icons.people_alt_outlined)
+                    : const Icon(Icons.person_outlined),
                 const SizedBox(width: 4),
                 Expanded(
                   child: Text(

@@ -54,19 +54,19 @@ class Workshop {
   final String title;
 
   String get speakersFlat =>
-      speakers.map((speaker) => speaker.fullTitle).join(",");
+      speakers.map((speaker) => speaker.fullTitle).join(", ");
 }
 
 class Speaker {
   const Speaker({
     required this.name,
-    required this.degree,
+    this.degree,
   });
 
   final String name;
-  final String degree;
+  final String? degree;
 
-  String get fullTitle => "$name, $degree";
+  String get fullTitle => degree != null ? "$name, $degree" : name;
 }
 
 extension TopicExtension on TechnicalTrack {
