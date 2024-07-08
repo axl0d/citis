@@ -151,21 +151,34 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: bodies.elementAt(_currentIndex),
-      bottomNavigationBar: NavigationBar(
-        backgroundColor: background,
-        selectedIndex: _currentIndex,
-        onDestinationSelected: _onItemTapped,
-        indicatorShape: const CircleBorder(),
-        destinations: [
-          NavigationDestination(
-            icon: SvgPicture.asset("assets/svg/ic_home.svg"),
-            label: 'Inicio',
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+          labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>(
+            (Set<WidgetState> states) => states.contains(WidgetState.selected)
+                ? const TextStyle(color: primary)
+                : const TextStyle(color: tertiary),
           ),
-          const NavigationDestination(
-            icon: Icon(Icons.calendar_month_outlined),
-            label: 'Agenda',
-          ),
-        ],
+        ),
+        child: NavigationBar(
+          backgroundColor: background,
+          selectedIndex: _currentIndex,
+          onDestinationSelected: _onItemTapped,
+          indicatorShape: const CircleBorder(),
+          destinations: [
+            NavigationDestination(
+              icon: SvgPicture.asset("assets/svg/ic_home.svg"),
+              selectedIcon: SvgPicture.asset(
+                "assets/svg/ic_home.svg",
+                color: primary,
+              ),
+              label: 'Inicio',
+            ),
+            const NavigationDestination(
+              icon: Icon(Icons.calendar_month_outlined),
+              label: 'Agenda',
+            ),
+          ],
+        ),
       ),
     );
   }
