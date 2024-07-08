@@ -26,13 +26,10 @@ class SignPage extends StatelessWidget {
               ),
             ),
             Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Image.asset(
-                  "assets/red_citis_logo.png",
-                  width: 300,
-                  height: 400,
-                ),
+              child: Image.asset(
+                "assets/red_citis_logo.png",
+                width: 300,
+                height: 400,
               ),
             ),
             Center(
