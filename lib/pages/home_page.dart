@@ -189,7 +189,7 @@ class _FilterScreen extends StatelessWidget {
         ),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -212,6 +212,13 @@ class _FilterScreen extends StatelessWidget {
             ),
             const Gap(8),
           ],
+          const Gap(8),
+          Center(
+            child: TextButton(
+              onPressed: () {},
+              child: const Text("Clear"),
+            ),
+          ),
         ],
       ),
     );
