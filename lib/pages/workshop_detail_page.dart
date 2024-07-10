@@ -10,9 +10,11 @@ class WorkshopDetailPage extends StatelessWidget {
   const WorkshopDetailPage({
     super.key,
     required this.workshop,
+    required this.hour,
   });
 
   final Workshop workshop;
+  final String hour;
 
   @override
   Widget build(BuildContext context) {
@@ -29,50 +31,82 @@ class WorkshopDetailPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              workshop.title,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const Gap(4),
-            Row(
-              children: [
-                Icon(
-                  workshop.speakers.length > 1
-                      ? Icons.people_alt_outlined
-                      : Icons.person_outlined,
-                  color: r2,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  workshop.speakersFlat,
-                  style: GoogleFonts.cormorant(
-                    fontSize: 18,
-                    color: r2,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 24,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    workshop.title,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
-                ),
-              ],
-            ),
-            const Gap(16),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: tertiary,
-                foregroundColor: Colors.white,
+                  const Gap(4),
+                  Row(
+                    children: [
+                      Icon(
+                        workshop.speakers.length > 1
+                            ? Icons.people_alt_outlined
+                            : Icons.person_outlined,
+                        color: r2,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        workshop.speakersFlat,
+                        style: GoogleFonts.cormorant(
+                          fontSize: 18,
+                          color: r2,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Gap(16),
+                  if (workshop.abstract != null) ...[
+                    Text(
+                      workshop.abstract!,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const Gap(16),
+                  ],
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: tertiary,
+                      foregroundColor: Colors.white,
+                    ),
+                    iconAlignment: IconAlignment.end,
+                    icon: SvgPicture.asset(
+                      "assets/svg/ic_add_calendar.svg",
+                      color: Colors.white,
+                    ),
+                    label: const Text("Añadir a mi calendario"),
+                    onPressed: () {},
+                  ),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: tertiary,
+                      foregroundColor: Colors.white,
+                    ),
+                    iconAlignment: IconAlignment.end,
+                    icon: SvgPicture.asset(
+                      "assets/svg/ic_add_calendar.svg",
+                      color: Colors.white,
+                    ),
+                    label: const Text("Registrarse"),
+                    onPressed: () {},
+                  ),
+                ],
               ),
-              iconAlignment: IconAlignment.end,
-              icon: SvgPicture.asset(
-                "assets/svg/ic_add_calendar.svg",
-                color: Colors.white,
-              ),
-              label: const Text("Añadir a mi calendario"),
-              onPressed: () {},
             ),
-            const Spacer(),
-            Card(
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Card(
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -114,7 +148,7 @@ class WorkshopDetailPage extends StatelessWidget {
                         const Icon(Icons.access_time_outlined),
                         const Gap(4),
                         Text(
-                          "14:00 - 14:25",
+                          hour,
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall
@@ -149,8 +183,9 @@ class WorkshopDetailPage extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          const Gap(8),
+        ],
       ),
     );
   }

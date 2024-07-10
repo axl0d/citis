@@ -46,12 +46,14 @@ class Workshop {
     required this.topic,
     required this.location,
     required this.title,
+    this.abstract,
   });
 
   final List<Speaker> speakers;
   final TechnicalTrack topic;
   final String location;
   final String title;
+  final String? abstract;
 
   String get speakersFlat =>
       speakers.map((speaker) => speaker.fullTitle).join(", ");

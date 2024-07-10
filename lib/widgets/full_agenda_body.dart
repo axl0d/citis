@@ -69,6 +69,7 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
                   child: _WorkshopCard(
                     key: Key("workshop ${eventTrack.workshop!.title}"),
                     workshop: eventTrack.workshop!,
+                    hour: eventTrack.hour,
                   ),
                 ),
                 const Gap(8),
@@ -80,6 +81,7 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
                     child: _WorkshopCard(
                       key: Key("workshop ${workshop.title}"),
                       workshop: workshop,
+                      hour: eventTrack.hour,
                     ),
                   ),
                   const Gap(8),
@@ -182,9 +184,11 @@ class _WorkshopCard extends StatelessWidget {
   const _WorkshopCard({
     required super.key,
     required this.workshop,
+    required this.hour,
   });
 
   final Workshop workshop;
+  final String hour;
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +225,12 @@ class _WorkshopCard extends StatelessWidget {
   void _navigateToDetail(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => WorkshopDetailPage(workshop: workshop)),
+      MaterialPageRoute(
+        builder: (_) => WorkshopDetailPage(
+          workshop: workshop,
+          hour: hour,
+        ),
+      ),
     );
   }
 }

@@ -68,12 +68,13 @@ const jul17 = [
     hour: "09:00 - 13:00",
     workshops: [
       Workshop(
-        speakers: [speaker1],
-        topic: TechnicalTrack.sustainability,
-        location: 'room B1',
-        title:
-            'Fermentation process and industrial waste upcycling by industrial microorganisms',
-      ),
+          speakers: [speaker1],
+          topic: TechnicalTrack.sustainability,
+          location: 'room B1',
+          title:
+              'Fermentation process and industrial waste upcycling by industrial microorganisms',
+          abstract:
+              'Industrial microorganisms’ valorization are of great importance to diverse sectors, because they play a fundamental role in the production of a wide range of products and processes. Their strategic use allows for economic, environmental, and social benefits. In this workshop, we will highlight the most relevant aspects of bioprocesses through practical activities such as the production of craft beer from malted barley by fermentation, and the production of a sustainable textile biomaterial using industrial waste. The purpose of this master class is to present techniques and analytical methods for the isolation and manipulation of microorganisms that generate a value-added product from industrial waste. In addition, image analysis and microscopy techniques will be shown for the colony quantification and morphology in fungi and microalgae.'),
       Workshop(
         speakers: [speaker2],
         topic: TechnicalTrack.industry,
