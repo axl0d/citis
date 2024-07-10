@@ -1,5 +1,7 @@
 import 'package:citis/models.dart';
+import 'package:citis/notifiers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
@@ -78,11 +80,12 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class _FilterScreen extends StatelessWidget {
+class _FilterScreen extends ConsumerWidget {
   const _FilterScreen();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filters = ref.watch(filterNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -106,20 +109,20 @@ class _FilterScreen extends StatelessWidget {
             ),
           ),
           const Gap(8),
-          for (final tracks in TechnicalTrack.values) ...[
+          for (final track in TechnicalTrack.values) ...[
             CheckboxListTile(
               visualDensity: VisualDensity.compact,
               controlAffinity: ListTileControlAffinity.leading,
-              value: false,
-              onChanged: (_) {},
+              value: filters.contains(track),
+              onChanged: (bool? value) =>
+                  ref.read(filterNotifierProvider.notifier).toggleFilter(track),
               title: Text(
-                tracks.inSpanish,
+                track.inSpanish,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
             const Gap(8),
           ],
-          const Gap(8),
           Center(
             child: TextButton(
               onPressed: () {},
