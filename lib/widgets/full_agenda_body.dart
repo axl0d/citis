@@ -47,23 +47,21 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
                 ...timeSlot.locations
                     .expand(
                       (location) => location.sessions.map(
-                        (session) {
-                          if (session is NoTechnicalSession)
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: _NoTechnicalSession(session: session),
-                            );
-
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: _AcademicSessionClickableCard(
-                              session: session as AcademicSession,
+                        (session) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: session.iterate(
+                            onNoTechnicalSession: (noTechnicalSession) =>
+                                _NoTechnicalSession(
+                              session: noTechnicalSession,
+                            ),
+                            onAcademicSession: (academicSession) =>
+                                _AcademicSessionClickableCard(
+                              session: academicSession,
                               location: location.name,
                               hour: timeSlot.time,
                             ),
-                          );
-                        },
+                          ),
+                        ),
                       ),
                     )
                     .toList()

@@ -60,6 +60,20 @@ class Session {
   const Session({required this.title});
 
   final String title;
+
+  T iterate<T>({
+    required T Function(NoTechnicalSession) onNoTechnicalSession,
+    required T Function(AcademicSession) onAcademicSession,
+  }) {
+    switch (runtimeType) {
+      case NoTechnicalSession:
+        return onNoTechnicalSession.call(this as NoTechnicalSession);
+      case AcademicSession:
+        return onAcademicSession.call(this as AcademicSession);
+      default:
+        throw Exception("Unknown type");
+    }
+  }
 }
 
 class AcademicSession extends Session {
