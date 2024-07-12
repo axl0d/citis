@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models.dart';
 import '../theme.dart';
 
-class WorkshopDetailPage extends StatelessWidget {
-  const WorkshopDetailPage({
+class AcademicSessionDetailPage extends StatelessWidget {
+  const AcademicSessionDetailPage({
     super.key,
-    required this.workshop,
+    required this.session,
     required this.hour,
+    required this.location,
   });
 
-  final Workshop workshop;
+  final AcademicSession session;
   final String hour;
+  final String location;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,11 @@ class WorkshopDetailPage extends StatelessWidget {
       backgroundColor: background,
       appBar: AppBar(
         title: Text(
-          "Workshop",
+          session.map(
+            onWorkshop: (_) => "Workshop",
+            onKeyNote: (_) => "Key Note",
+            onPaperExhibition: (_) => "Paper Exhibition",
+          ),
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         centerTitle: true,
@@ -44,36 +51,76 @@ class WorkshopDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    workshop.title,
+                    session.title,
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const Gap(4),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        workshop.speakers.length > 1
-                            ? Icons.people_alt_outlined
-                            : Icons.person_outlined,
-                        color: r2,
+                      session.maybeMap(
+                        orElse: () => Icon(
+                          Icons.person_outlined,
+                          color: r2,
+                        ),
+                        onPaperExhibition: (_) => Icon(
+                          Icons.people_outline_rounded,
+                          color: r2,
+                        ),
                       ),
                       const SizedBox(width: 4),
-                      Text(
-                        workshop.speakersFlat,
-                        style: GoogleFonts.cormorant(
-                          fontSize: 18,
-                          color: r2,
+                      Expanded(
+                        child: Text(
+                          session.map(
+                            onWorkshop: (workshop) =>
+                                workshop.speaker.fullTitle,
+                            onKeyNote: (keyNote) => keyNote.speaker.fullTitle,
+                            onPaperExhibition: (paperExhibition) =>
+                                paperExhibition.speakersFlat,
+                          ),
+                          style: GoogleFonts.cormorant(
+                            fontSize: 18,
+                            color: r2,
+                          ),
                         ),
                       ),
                     ],
                   ),
                   const Gap(16),
-                  if (workshop.abstract != null) ...[
-                    Text(
-                      workshop.abstract!,
+                  session.map(
+                    onWorkshop: (workshop) => Text(
+                      workshop.abstract,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
-                    const Gap(16),
-                  ],
+                    onKeyNote: (keyNote) => Text(
+                      keyNote.abstract,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    onPaperExhibition: (_) => Offstage(),
+                  ),
+                  session.map(
+                    onWorkshop: (workshop) => ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: tertiary,
+                        foregroundColor: Colors.white,
+                      ),
+                      iconAlignment: IconAlignment.end,
+                      icon: Icon(Icons.edit_calendar_outlined),
+                      label: const Text("Registrarse"),
+                      onPressed: () => _launchUrl(workshop.registerLink),
+                    ),
+                    onKeyNote: (keyNote) => ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: tertiary,
+                        foregroundColor: Colors.white,
+                      ),
+                      iconAlignment: IconAlignment.end,
+                      icon: Icon(Icons.edit_calendar_outlined),
+                      label: const Text("Registrarse"),
+                      onPressed: () => _launchUrl(keyNote.registerLink),
+                    ),
+                    onPaperExhibition: (_) => Offstage(),
+                  ),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: tertiary,
@@ -85,19 +132,6 @@ class WorkshopDetailPage extends StatelessWidget {
                       color: Colors.white,
                     ),
                     label: const Text("Añadir a mi calendario"),
-                    onPressed: () {},
-                  ),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: tertiary,
-                      foregroundColor: Colors.white,
-                    ),
-                    iconAlignment: IconAlignment.end,
-                    icon: SvgPicture.asset(
-                      "assets/svg/ic_add_calendar.svg",
-                      color: Colors.white,
-                    ),
-                    label: const Text("Registrarse"),
                     onPressed: () {},
                   ),
                 ],
@@ -126,7 +160,7 @@ class WorkshopDetailPage extends StatelessWidget {
                         const Gap(4),
                         Expanded(
                           child: Text(
-                            workshop.location,
+                            location,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
@@ -170,7 +204,7 @@ class WorkshopDetailPage extends StatelessWidget {
                             vertical: 5,
                           ),
                           child: Text(
-                            workshop.topic.inSpanish.toUpperCase(),
+                            session.technicalTrack.inSpanish.toUpperCase(),
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall
@@ -188,5 +222,12 @@ class WorkshopDetailPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _launchUrl(String url) async {
+    final Uri _url = Uri.parse(url);
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 }

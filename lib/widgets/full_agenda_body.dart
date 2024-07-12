@@ -3,10 +3,8 @@ import 'package:gap/gap.dart';
 
 import '../dumb_data.dart';
 import '../models.dart';
-import '../pages/workshop_detail_page.dart';
+import '../pages/academia_session_detail_page.dart';
 import '../theme.dart';
-
-const data = [jul17, jul18, jul19];
 
 class FullAgendaBody extends StatefulWidget {
   const FullAgendaBody({super.key});
@@ -16,7 +14,7 @@ class FullAgendaBody extends StatefulWidget {
 }
 
 class _FullAgendaBodyState extends State<FullAgendaBody> {
-  List<EventTrack> _selectedData = data[0];
+  ScheduleDay _selectedData = days[0];
 
   @override
   Widget build(BuildContext context) {
@@ -27,67 +25,99 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: _EventDayButtons(
               (selectedIndex) => setState(
-                () => _selectedData = data.elementAt(selectedIndex),
+                () => _selectedData = days.elementAt(selectedIndex),
               ),
             ),
           ),
         ),
         const SliverGap(8),
-        SliverList.list(
-          children: [
-            for (final eventTrack in _selectedData) ...[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: DecoratedBox(
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 16,
-                    ),
-                    child: Text(eventTrack.hour),
-                  ),
-                ),
-              ),
-              const Gap(8),
-              if (eventTrack.track != null) ...[
+        SliverList.separated(
+          itemCount: _selectedData.timeSlots.length,
+          separatorBuilder: (_, __) => const Gap(8),
+          itemBuilder: (_, index) {
+            final timeSlot = _selectedData.timeSlots[index];
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Card(
-                    color: Theme.of(context).colorScheme.primaryContainer,
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(color: Colors.white),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(eventTrack.track!),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 16,
+                      ),
+                      child: Text(timeSlot.time),
                     ),
                   ),
                 ),
                 const Gap(8),
+                ...timeSlot.locations
+                    .expand(
+                      (location) => location.sessions.map(
+                        (session) {
+                          if (session is NoTechnicalSession)
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Card(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(session.title),
+                                ),
+                              ),
+                            );
+                          if (session is Workshop)
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: _AcademicSessionClickableCard(
+                                session: session,
+                                subtitle: _AuthorSubtitle(
+                                  speaker: session.speaker,
+                                ),
+                                location: location.name,
+                                hour: timeSlot.time,
+                              ),
+                            );
+                          if (session is KeyNote)
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: _AcademicSessionClickableCard(
+                                session: session,
+                                subtitle: _AuthorSubtitle(
+                                  speaker: session.speaker,
+                                ),
+                                location: location.name,
+                                hour: timeSlot.time,
+                              ),
+                            );
+                          if (session is PaperExhibition)
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: _AcademicSessionClickableCard(
+                                session: session,
+                                subtitle: _AuthorsSubtitle(
+                                  speakers: session.speakersFlat,
+                                ),
+                                location: location.name,
+                                hour: timeSlot.time,
+                              ),
+                            );
+                          return Offstage();
+                        },
+                      ),
+                    )
+                    .toList()
               ],
-              if (eventTrack.workshop != null) ...[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: _WorkshopCard(
-                    key: Key("workshop ${eventTrack.workshop!.title}"),
-                    workshop: eventTrack.workshop!,
-                    hour: eventTrack.hour,
-                  ),
-                ),
-                const Gap(8),
-              ],
-              if (eventTrack.workshops != null)
-                for (final workshop in eventTrack.workshops!) ...[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: _WorkshopCard(
-                      key: Key("workshop ${workshop.title}"),
-                      workshop: workshop,
-                      hour: eventTrack.hour,
-                    ),
-                  ),
-                  const Gap(8),
-                ]
-            ]
-          ],
+            );
+          },
         )
       ],
     );
@@ -180,15 +210,18 @@ class _EventDayButtonItem extends StatelessWidget {
   }
 }
 
-class _WorkshopCard extends StatelessWidget {
-  const _WorkshopCard({
-    required super.key,
-    required this.workshop,
+class _AcademicSessionClickableCard extends StatelessWidget {
+  const _AcademicSessionClickableCard({
+    required this.session,
+    required this.subtitle,
     required this.hour,
+    required this.location,
   });
 
-  final Workshop workshop;
+  final AcademicSession session;
+  final Widget subtitle;
   final String hour;
+  final String location;
 
   @override
   Widget build(BuildContext context) {
@@ -196,26 +229,9 @@ class _WorkshopCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       color: Colors.white,
       child: InkWell(
-        child: Dismissible(
-          key: key!,
-          child: ListTile(
-            title: Text(workshop.title),
-            subtitle: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(workshop.speakers.length > 1
-                    ? Icons.people_alt_outlined
-                    : Icons.person_outlined),
-                const SizedBox(width: 4),
-                Expanded(
-                  child: Text(
-                    workshop.speakersFlat,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-              ],
-            ),
-          ),
+        child: ListTile(
+          title: Text(session.title),
+          subtitle: subtitle,
         ),
         onTap: () => _navigateToDetail(context),
       ),
@@ -226,11 +242,58 @@ class _WorkshopCard extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => WorkshopDetailPage(
-          workshop: workshop,
+        builder: (_) => AcademicSessionDetailPage(
+          session: session,
           hour: hour,
+          location: location,
         ),
       ),
+    );
+  }
+}
+
+class _AuthorSubtitle extends StatelessWidget {
+  const _AuthorSubtitle({required this.speaker});
+
+  final Speaker speaker;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(Icons.person_outlined),
+        const SizedBox(width: 4),
+        Expanded(
+          child: Text(
+            speaker.fullTitle,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _AuthorsSubtitle extends StatelessWidget {
+  const _AuthorsSubtitle({required this.speakers});
+
+  final String speakers;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(Icons.people_outline_rounded),
+        const SizedBox(width: 4),
+        Expanded(
+          child: Text(
+            speakers,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ),
+      ],
     );
   }
 }

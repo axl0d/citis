@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../dumb_data.dart';
 import '../models.dart';
 import '../theme.dart';
 
@@ -10,7 +9,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workshops = jul17[1].workshops!;
+    // final workshops = jul17[1].sessions!;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -65,13 +64,13 @@ class HomeView extends StatelessWidget {
             ),
           ),
           const Divider(),
-          for (final workshop in workshops) ...[
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: NextSessionItem(workshop: workshop),
-            ),
-            const Divider(),
-          ]
+          // for (final workshop in workshops) ...[
+          //   Padding(
+          //     padding: const EdgeInsets.all(16),
+          //     child: NextSessionItem(workshop: workshop),
+          //   ),
+          //   const Divider(),
+          // ]
         ],
       ),
     );
@@ -93,7 +92,7 @@ class NextSessionItem extends StatelessWidget {
       children: [
         Text(workshop.title),
         const Gap(8),
-        Text(workshop.speakersFlat),
+        Text(workshop.speaker.fullTitle),
         const Gap(8),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
