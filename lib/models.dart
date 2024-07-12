@@ -26,9 +26,10 @@ class EventTrack {
   final List<AcademicSession>? sessions;
 }
 
-class EventDay {
-  const EventDay({
+class ScheduleDay {
+  const ScheduleDay({
     required this.day,
+    required this.timeSlots,
     required this.weekday,
     required this.month,
   });
@@ -36,15 +37,9 @@ class EventDay {
   final int day;
   final String weekday;
   final String month;
+  final List<TimeSlot> timeSlots;
 
   String get weekdayMin => weekday.substring(0, 3);
-}
-
-class ScheduleDay {
-  const ScheduleDay({required this.date, required this.timeSlots});
-
-  final String date;
-  final List<TimeSlot> timeSlots;
 }
 
 class TimeSlot {

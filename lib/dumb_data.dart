@@ -56,16 +56,41 @@ const speaker50 = Speaker(name: 'Juan Pedro Fernández-Blázquez');
 const speaker51 = Speaker(name: 'Andrea Fernández-Gorgojo');
 const speaker52 = Speaker(name: 'Antonio Vizán-Idiope');
 
-const eventDays = [
-  EventDay(day: 17, weekday: "Miércoles", month: "Julio"),
-  EventDay(day: 18, weekday: "Jueves", month: "Julio"),
-  EventDay(day: 19, weekday: "Viernes", month: "Julio"),
+const days = [
+  sunday,
+  monday,
+  tuesday,
+  wednesday,
+  thursday,
+  friday,
+  saturday,
 ];
 
-const days = [firstDay, secondDay, thirdDay];
+const sunday = ScheduleDay(
+  day: 14,
+  timeSlots: [],
+  weekday: "Domingo",
+  month: "Julio",
+);
 
-const firstDay = ScheduleDay(
-  date: "",
+const monday = ScheduleDay(
+  day: 15,
+  timeSlots: [],
+  weekday: "Lunes",
+  month: "Julio",
+);
+
+const tuesday = ScheduleDay(
+  day: 16,
+  timeSlots: [],
+  weekday: "Martes",
+  month: "Julio",
+);
+
+const wednesday = ScheduleDay(
+  day: 17,
+  month: "Julio",
+  weekday: "Míercoles",
   timeSlots: [
     TimeSlot(
       time: "8:00",
@@ -218,8 +243,10 @@ const firstDay = ScheduleDay(
   ],
 );
 
-const secondDay = ScheduleDay(
-  date: "",
+const thursday = ScheduleDay(
+  day: 18,
+  month: "Julio",
+  weekday: "Jueves",
   timeSlots: [
     TimeSlot(
       time: "8:00",
@@ -326,8 +353,10 @@ const secondDay = ScheduleDay(
   ],
 );
 
-const thirdDay = ScheduleDay(
-  date: "",
+const friday = ScheduleDay(
+  day: 19,
+  month: "Julio",
+  weekday: "Viernes",
   timeSlots: [
     TimeSlot(
       time: "09:00 - 09:25",
@@ -493,4 +522,11 @@ const thirdDay = ScheduleDay(
       ],
     ),
   ],
+);
+
+const saturday = ScheduleDay(
+  day: 20,
+  timeSlots: [],
+  weekday: "Sábado",
+  month: "Julio",
 );

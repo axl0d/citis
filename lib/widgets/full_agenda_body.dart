@@ -22,7 +22,7 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
       slivers: [
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: _EventDayButtons(
               (selectedIndex) => setState(
                 () => _selectedData = days.elementAt(selectedIndex),
@@ -134,17 +134,18 @@ class _EventDayButtons extends StatefulWidget {
 }
 
 class _EventDayButtonsState extends State<_EventDayButtons> {
-  int _selectedDay = 0;
+  int _selectedDay = 3;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-        for (var i = 0; i < eventDays.length; i++)
+        for (var i = 0; i < days.length; i++)
           _EventDayButtonItem(
             index: i,
             selectedIndex: _selectedDay,
-            eventDay: eventDays[i],
+            eventDay: days[i],
+            isDisabled: days[i].timeSlots.isEmpty,
             onTap: (selectedDay) {
               setState(() => _selectedDay = selectedDay);
               widget.onSelect(i);
@@ -159,13 +160,15 @@ class _EventDayButtonItem extends StatelessWidget {
   const _EventDayButtonItem({
     required this.index,
     required this.selectedIndex,
+    required this.isDisabled,
     required this.eventDay,
     required this.onTap,
   });
 
   final int index;
   final int selectedIndex;
-  final EventDay eventDay;
+  final bool isDisabled;
+  final ScheduleDay eventDay;
   final Function(int selectedIndex) onTap;
 
   bool get _isSelected => index == selectedIndex;
@@ -184,22 +187,31 @@ class _EventDayButtonItem extends StatelessWidget {
         ),
       ),
       child: InkWell(
-        onTap: () => onTap.call(index),
+        onTap: isDisabled ? null : () => onTap.call(index),
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Column(
             children: [
               Text(
                 eventDay.weekdayMin,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: _isSelected ? primary : null,
+                textScaleFactor: 1.0,
+                style: textTheme.bodySmall?.copyWith(
+                  color: _isSelected
+                      ? primary
+                      : isDisabled
+                          ? grey
+                          : null,
                 ),
               ),
               const Gap(8),
               Text(
                 "${eventDay.day}",
                 style: textTheme.headlineSmall?.copyWith(
-                  color: _isSelected ? primary : null,
+                  color: _isSelected
+                      ? primary
+                      : isDisabled
+                          ? grey
+                          : null,
                 ),
               ),
             ],
