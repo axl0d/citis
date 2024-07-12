@@ -41,16 +41,7 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: DecoratedBox(
-                    decoration: const BoxDecoration(color: Colors.white),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 16,
-                      ),
-                      child: Text(timeSlot.time),
-                    ),
-                  ),
+                  child: _TimeSlot(timeSlot: timeSlot),
                 ),
                 const Gap(8),
                 ...timeSlot.locations
@@ -61,56 +52,17 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16),
-                              child: Card(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(session.title),
-                                ),
-                              ),
+                              child: _NoTechnicalSession(session: session),
                             );
-                          if (session is Workshop)
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: _AcademicSessionClickableCard(
-                                session: session,
-                                subtitle: _AuthorSubtitle(
-                                  speaker: session.speaker,
-                                ),
-                                location: location.name,
-                                hour: timeSlot.time,
-                              ),
-                            );
-                          if (session is KeyNote)
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: _AcademicSessionClickableCard(
-                                session: session,
-                                subtitle: _AuthorSubtitle(
-                                  speaker: session.speaker,
-                                ),
-                                location: location.name,
-                                hour: timeSlot.time,
-                              ),
-                            );
-                          if (session is PaperExhibition)
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: _AcademicSessionClickableCard(
-                                session: session,
-                                subtitle: _AuthorsSubtitle(
-                                  speakers: session.speakersFlat,
-                                ),
-                                location: location.name,
-                                hour: timeSlot.time,
-                              ),
-                            );
-                          return Offstage();
+
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: _AcademicSessionClickableCard(
+                              session: session as AcademicSession,
+                              location: location.name,
+                              hour: timeSlot.time,
+                            ),
+                          );
                         },
                       ),
                     )
@@ -120,6 +72,49 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
           },
         )
       ],
+    );
+  }
+}
+
+class _NoTechnicalSession extends StatelessWidget {
+  const _NoTechnicalSession({required this.session});
+
+  final Session session;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Theme.of(context).colorScheme.primaryContainer,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          session.title,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      ),
+    );
+  }
+}
+
+class _TimeSlot extends StatelessWidget {
+  const _TimeSlot({required this.timeSlot});
+
+  final TimeSlot timeSlot;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: const BoxDecoration(color: Colors.white),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 16,
+        ),
+        child: Text(
+          timeSlot.time,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      ),
     );
   }
 }
@@ -225,13 +220,11 @@ class _EventDayButtonItem extends StatelessWidget {
 class _AcademicSessionClickableCard extends StatelessWidget {
   const _AcademicSessionClickableCard({
     required this.session,
-    required this.subtitle,
     required this.hour,
     required this.location,
   });
 
   final AcademicSession session;
-  final Widget subtitle;
   final String hour;
   final String location;
 
@@ -242,8 +235,18 @@ class _AcademicSessionClickableCard extends StatelessWidget {
       color: Colors.white,
       child: InkWell(
         child: ListTile(
-          title: Text(session.title),
-          subtitle: subtitle,
+          title: Text(
+            session.title,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          subtitle: session.map(
+            onWorkshop: (workshop) =>
+                _AuthorSubtitle(speaker: workshop.speaker),
+            onKeyNote: (keyNote) => _AuthorSubtitle(speaker: keyNote.speaker),
+            onPaperExhibition: (paperExhibition) => _AuthorsSubtitle(
+              speakers: paperExhibition.speakersFlat,
+            ),
+          ),
         ),
         onTap: () => _navigateToDetail(context),
       ),
@@ -279,7 +282,7 @@ class _AuthorSubtitle extends StatelessWidget {
         Expanded(
           child: Text(
             speaker.fullTitle,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
       ],
@@ -302,7 +305,7 @@ class _AuthorsSubtitle extends StatelessWidget {
         Expanded(
           child: Text(
             speakers,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
       ],
