@@ -98,6 +98,7 @@ class AcademicSessionDetailPage extends StatelessWidget {
                     ),
                     onPaperExhibition: (_) => Offstage(),
                   ),
+                  const Gap(8),
                   session.map(
                     onWorkshop: (workshop) => ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
@@ -138,6 +139,7 @@ class AcademicSessionDetailPage extends StatelessWidget {
               ),
             ),
           ),
+          const Gap(8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Card(
