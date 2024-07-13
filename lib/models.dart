@@ -60,19 +60,20 @@ class Session {
   const Session({required this.title});
 
   final String title;
+}
 
-  T iterate<T>({
+extension SessionX on Session {
+  T map<T>({
     required T Function(NoTechnicalSession) onNoTechnicalSession,
     required T Function(AcademicSession) onAcademicSession,
   }) {
-    switch (runtimeType) {
-      case NoTechnicalSession:
-        return onNoTechnicalSession.call(this as NoTechnicalSession);
-      case AcademicSession:
-        return onAcademicSession.call(this as AcademicSession);
-      default:
-        throw Exception("Unknown type");
+    if (this is NoTechnicalSession) {
+      return onNoTechnicalSession.call(this as NoTechnicalSession);
     }
+    if (this is AcademicSession) {
+      return onAcademicSession.call(this as AcademicSession);
+    }
+    throw Exception("Session unknown type");
   }
 }
 
@@ -83,7 +84,9 @@ class AcademicSession extends Session {
   });
 
   final TechnicalTrack technicalTrack;
+}
 
+extension AcademicSessionX on AcademicSession {
   T map<T>({
     required T Function(Workshop) onWorkshop,
     required T Function(KeyNote) onKeyNote,
@@ -97,7 +100,7 @@ class AcademicSession extends Session {
       case PaperExhibition:
         return onPaperExhibition.call(this as PaperExhibition);
       default:
-        throw Exception("Unknown type");
+        throw Exception("Academic unknown type");
     }
   }
 

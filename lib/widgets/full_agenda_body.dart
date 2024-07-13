@@ -49,7 +49,7 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
                       (location) => location.sessions.map(
                         (session) => Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: session.iterate(
+                          child: session.map(
                             onNoTechnicalSession: (noTechnicalSession) =>
                                 _NoTechnicalSession(
                               session: noTechnicalSession,
@@ -77,7 +77,7 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
 class _NoTechnicalSession extends StatelessWidget {
   const _NoTechnicalSession({required this.session});
 
-  final Session session;
+  final NoTechnicalSession session;
 
   @override
   Widget build(BuildContext context) {
