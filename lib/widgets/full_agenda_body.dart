@@ -14,7 +14,7 @@ class FullAgendaBody extends StatefulWidget {
 }
 
 class _FullAgendaBodyState extends State<FullAgendaBody> {
-  ScheduleDay _selectedData = days[0];
+  ScheduleDay _selectedData = days[3];
 
   @override
   Widget build(BuildContext context) {
