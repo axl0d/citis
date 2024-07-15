@@ -59,6 +59,7 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
                               session: academicSession,
                               location: location.name,
                               hour: timeSlot.time,
+                              date: _selectedData.detailedDate,
                             ),
                           ),
                         ),
@@ -220,11 +221,13 @@ class _AcademicSessionClickableCard extends StatelessWidget {
     required this.session,
     required this.hour,
     required this.location,
+    required this.date,
   });
 
   final AcademicSession session;
   final String hour;
   final String location;
+  final String date;
 
   @override
   Widget build(BuildContext context) {
@@ -258,6 +261,7 @@ class _AcademicSessionClickableCard extends StatelessWidget {
         builder: (_) => AcademicSessionDetailPage(
           session: session,
           hour: hour,
+          date: date,
           location: location,
         ),
       ),

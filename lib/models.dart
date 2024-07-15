@@ -42,6 +42,10 @@ class ScheduleDay {
   String get weekdayMin => weekday.substring(0, 3);
   String get monthMin => month.substring(0, 3);
   String get dateMin => "$monthMin $day";
+  String get _year => "2024";
+  String get _month => "07";
+
+  String get detailedDate => "$weekdayMin. $day-$_month-$_year";
 }
 
 class TimeSlot {

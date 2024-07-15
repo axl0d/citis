@@ -12,10 +12,12 @@ class AcademicSessionDetailPage extends StatelessWidget {
     super.key,
     required this.session,
     required this.hour,
+    required this.date,
     required this.location,
   });
 
   final AcademicSession session;
+  final String date;
   final String hour;
   final String location;
 
@@ -174,7 +176,7 @@ class AcademicSessionDetailPage extends StatelessWidget {
                         const Icon(Icons.calendar_month_outlined),
                         const Gap(4),
                         Text(
-                          "Fri. 03-12-2024",
+                          date,
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall
