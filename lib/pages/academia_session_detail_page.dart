@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -154,21 +155,38 @@ class AcademicSessionDetailPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(
-                          Icons.location_on_outlined,
-                          size: 32,
-                        ),
-                        const Gap(4),
-                        Expanded(
-                          child: Text(
-                            location,
-                            style: Theme.of(context).textTheme.bodyMedium,
+                    ListTile(
+                      onTap: () => showDialog<void>(
+                        context: context,
+                        builder: (_) => Dialog(
+                          clipBehavior: Clip.antiAlias,
+                          child: CarouselSlider(
+                            options: CarouselOptions(
+                              autoPlay: true,
+                            ),
+                            items: [
+                              "assets/images/map_1.png",
+                              "assets/images/map_2.png"
+                            ]
+                                .map(
+                                  (item) => Image.asset(
+                                    item,
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                                .toList(),
                           ),
                         ),
-                      ],
+                      ),
+                      contentPadding: EdgeInsets.zero,
+                      leading: const Icon(
+                        Icons.location_on_outlined,
+                        size: 32,
+                      ),
+                      title: Text(
+                        location,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ),
                     const Gap(8),
                     Row(
