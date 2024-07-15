@@ -1,3 +1,4 @@
+import 'package:citis/dumb_data.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -9,7 +10,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final workshops = jul17[1].sessions!;
+    final nextSessions = wednesday.timeSlots[1];
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -64,13 +65,19 @@ class HomeView extends StatelessWidget {
             ),
           ),
           const Divider(),
-          // for (final workshop in workshops) ...[
-          //   Padding(
-          //     padding: const EdgeInsets.all(16),
-          //     child: NextSessionItem(workshop: workshop),
-          //   ),
-          //   const Divider(),
-          // ]
+          ...nextSessions.locations.expand(
+            (location) => location.sessions.map(
+              (session) => Padding(
+                padding: const EdgeInsets.all(16),
+                child: NextSessionItem(
+                  session: session as AcademicSession,
+                  location: location.name,
+                  date: wednesday.dateMin,
+                  time: nextSessions.time,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -80,28 +87,52 @@ class HomeView extends StatelessWidget {
 class NextSessionItem extends StatelessWidget {
   const NextSessionItem({
     super.key,
-    required this.workshop,
+    required this.session,
+    required this.date,
+    required this.time,
+    required this.location,
   });
 
-  final Workshop workshop;
+  final AcademicSession session;
+  final String date;
+  final String time;
+  final String location;
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(workshop.title),
+        Text(
+          session.title,
+          style: textTheme.bodyMedium,
+        ),
         const Gap(8),
-        Text(workshop.speaker.fullTitle),
+        Text(
+          session.map(
+            onWorkshop: (workshop) => workshop.speaker.fullTitle,
+            onKeyNote: (keyNote) => keyNote.speaker.fullTitle,
+            onPaperExhibition: (paperExhibition) =>
+                paperExhibition.speakersFlat,
+          ),
+          style: textTheme.headlineLarge,
+        ),
         const Gap(8),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Row(
           children: [
-            Text(
-              "Jul 17",
+            Expanded(
+              child: Text("$date, $time"),
             ),
-            Text(
-              "Salon 123",
+            Flexible(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  location,
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.bodyMedium?.copyWith(color: primary),
+                ),
+              ),
             ),
           ],
         )
