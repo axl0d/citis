@@ -67,14 +67,19 @@ class HomeView extends StatelessWidget {
           const Divider(),
           ...nextSessions.locations.expand(
             (location) => location.sessions.map(
-              (session) => Padding(
-                padding: const EdgeInsets.all(16),
-                child: NextSessionItem(
-                  session: session as AcademicSession,
-                  location: location.name,
-                  date: wednesday.dateMin,
-                  time: nextSessions.time,
-                ),
+              (session) => Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: NextSessionItem(
+                      session: session as AcademicSession,
+                      location: location.name,
+                      date: wednesday.dateMin,
+                      time: nextSessions.time,
+                    ),
+                  ),
+                  Divider(),
+                ],
               ),
             ),
           ),
