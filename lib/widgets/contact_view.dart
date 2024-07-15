@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import '../launch_url.dart';
 import '../theme.dart';
@@ -51,6 +52,18 @@ class ContactView extends StatelessWidget {
             ),
             onTap: () => openUrl("https://g.co/kgs/DELxvTT"),
           ),
+          const Gap(8),
+          GestureDetector(
+            onTap: () => openUrl("https://g.co/kgs/DELxvTT"),
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              elevation: 0,
+              child: Image.asset(
+                "assets/images/location_in_map.png",
+                fit: BoxFit.cover,
+              ),
+            ),
+          )
         ],
       ),
     );
