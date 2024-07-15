@@ -40,6 +40,8 @@ class ScheduleDay {
   final List<TimeSlot> timeSlots;
 
   String get weekdayMin => weekday.substring(0, 3);
+  String get monthMin => month.substring(0, 3);
+  String get dateMin => "$monthMin $day";
 }
 
 class TimeSlot {
