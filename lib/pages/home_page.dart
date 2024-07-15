@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 
 import '../theme.dart';
 import '../widgets/agenda_view.dart';
+import '../widgets/contact_view.dart';
 import '../widgets/home_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,10 +17,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-const bodies = [
-  HomeView(),
-  AgendaView(),
-];
+const bodies = [HomeView(), AgendaView(), ContactView()];
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
@@ -72,6 +70,10 @@ class _HomePageState extends State<HomePage> {
             const NavigationDestination(
               icon: Icon(Icons.calendar_month_outlined),
               label: 'Agenda',
+            ),
+            const NavigationDestination(
+              icon: Icon(Icons.phone_android_outlined),
+              label: 'Contacto',
             ),
           ],
         ),

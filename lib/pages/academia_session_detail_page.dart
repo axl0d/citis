@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+import '../launch_url.dart';
 import '../models.dart';
 import '../theme.dart';
 
@@ -108,7 +108,7 @@ class AcademicSessionDetailPage extends StatelessWidget {
                       iconAlignment: IconAlignment.end,
                       icon: Icon(Icons.edit_calendar_outlined),
                       label: const Text("Registrarse"),
-                      onPressed: () => _launchUrl(workshop.registerLink),
+                      onPressed: () => openUrl(workshop.registerLink),
                     ),
                     onKeyNote: (keyNote) => ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
@@ -118,7 +118,7 @@ class AcademicSessionDetailPage extends StatelessWidget {
                       iconAlignment: IconAlignment.end,
                       icon: Icon(Icons.edit_calendar_outlined),
                       label: const Text("Registrarse"),
-                      onPressed: () => _launchUrl(keyNote.registerLink),
+                      onPressed: () => openUrl(keyNote.registerLink),
                     ),
                     onPaperExhibition: (_) => Offstage(),
                   ),
@@ -224,12 +224,5 @@ class AcademicSessionDetailPage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Future<void> _launchUrl(String url) async {
-    final Uri _url = Uri.parse(url);
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
-    }
   }
 }
