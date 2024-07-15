@@ -2,6 +2,7 @@ import 'package:citis/dumb_data.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+import '../launch_url.dart';
 import '../models.dart';
 import '../theme.dart';
 
@@ -11,6 +12,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nextSessions = wednesday.timeSlots[1];
+    final textTheme = Theme.of(context).textTheme;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -60,8 +62,34 @@ class HomeView extends StatelessWidget {
               vertical: 8,
             ),
             child: Text(
+              "Registrarse",
+              style: textTheme.headlineMedium,
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.public_outlined,
+              color: primary,
+            ),
+            title: Text(
+              "Ir al sitio",
+              style: textTheme.bodyMedium?.copyWith(
+                decoration: TextDecoration.underline,
+              ),
+            ),
+            onTap: () => openUrl(
+                "https://appwfp.ups.edu.ec/foc-webins/index.xhtml?prog=1082"),
+          ),
+          const Divider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ),
+            child: Text(
               "Next Session",
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: textTheme.headlineMedium,
             ),
           ),
           const Divider(),
