@@ -183,10 +183,11 @@ const wednesday = ScheduleDay(
       time: "13:00 - 14:00",
       locations: [
         Location(
-          name: "Aula Magna",
+          name: "6th floor",
           sessions: [
             NoTechnicalSession(
-                title: "Registration Bureau (hall next to the Aula Magna)")
+              title: "LUNCH - 6th floor",
+            ),
           ],
         ),
       ],
