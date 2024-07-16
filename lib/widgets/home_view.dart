@@ -99,7 +99,7 @@ class HomeView extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: NextSessionItem(
+                    child: _NextSessionItem(
                       session: session as AcademicSession,
                       location: location.name,
                       date: wednesday.dateMin,
@@ -117,9 +117,8 @@ class HomeView extends StatelessWidget {
   }
 }
 
-class NextSessionItem extends StatelessWidget {
-  const NextSessionItem({
-    super.key,
+class _NextSessionItem extends StatelessWidget {
+  const _NextSessionItem({
     required this.session,
     required this.date,
     required this.time,
