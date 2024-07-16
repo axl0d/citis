@@ -21,8 +21,7 @@ class _FullAgendaBodyState extends State<FullAgendaBody> {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Center(
             child: _EventDayButtons(
               (selectedIndex) => setState(
                 () => _selectedData = days.elementAt(selectedIndex),
