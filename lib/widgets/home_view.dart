@@ -66,7 +66,7 @@ class HomeView extends StatelessWidget {
               style: textTheme.headlineMedium,
             ),
           ),
-          const Divider(),
+          const Divider(color: Colors.grey),
           ListTile(
             leading: Icon(
               Icons.public_outlined,
@@ -81,7 +81,7 @@ class HomeView extends StatelessWidget {
             onTap: () => openUrl(
                 "https://appwfp.ups.edu.ec/foc-webins/index.xhtml?prog=1082"),
           ),
-          const Divider(),
+          const Divider(color: Colors.grey),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
@@ -92,7 +92,7 @@ class HomeView extends StatelessWidget {
               style: textTheme.headlineMedium,
             ),
           ),
-          const Divider(),
+          const Divider(color: Colors.grey),
           ...nextSessions.locations.expand(
             (location) => location.sessions.map(
               (session) => Column(
@@ -106,7 +106,7 @@ class HomeView extends StatelessWidget {
                       time: nextSessions.time,
                     ),
                   ),
-                  Divider(),
+                  const Divider(color: Colors.grey),
                 ],
               ),
             ),
