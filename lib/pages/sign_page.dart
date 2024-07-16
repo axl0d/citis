@@ -42,7 +42,7 @@ class SignPage extends StatelessWidget {
                 iconAlignment: IconAlignment.end,
                 label: const Padding(
                   padding: EdgeInsets.all(16),
-                  child: Text("Registrarse"),
+                  child: Text("Ingresar"),
                 ),
                 onPressed: () => Navigator.push(
                   context,
