@@ -103,26 +103,8 @@ class AcademicSessionDetailPage extends StatelessWidget {
                   ),
                   const Gap(8),
                   session.map(
-                    onWorkshop: (workshop) => ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: tertiary,
-                        foregroundColor: Colors.white,
-                      ),
-                      iconAlignment: IconAlignment.end,
-                      icon: Icon(Icons.edit_calendar_outlined),
-                      label: const Text("Registrarse"),
-                      onPressed: () => openUrl(workshop.registerLink),
-                    ),
-                    onKeyNote: (keyNote) => ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: tertiary,
-                        foregroundColor: Colors.white,
-                      ),
-                      iconAlignment: IconAlignment.end,
-                      icon: Icon(Icons.edit_calendar_outlined),
-                      label: const Text("Registrarse"),
-                      onPressed: () => openUrl(keyNote.registerLink),
-                    ),
+                    onWorkshop: (workshop) => _RegisterSessionButton(url: workshop.registerLink),
+                    onKeyNote: (keyNote) => _RegisterSessionButton(url: keyNote.registerLink),
                     onPaperExhibition: (_) => Offstage(),
                   ),
                   ElevatedButton.icon(
@@ -259,6 +241,28 @@ class AcademicSessionDetailPage extends StatelessWidget {
           const Gap(8),
         ],
       ),
+    );
+  }
+}
+
+class _RegisterSessionButton extends StatelessWidget {
+  const _RegisterSessionButton({
+    required this.url,
+  });
+
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: tertiary,
+        foregroundColor: Colors.white,
+      ),
+      iconAlignment: IconAlignment.end,
+      icon: Icon(Icons.edit_calendar_outlined),
+      label: const Text("Registrarse"),
+      onPressed: () => openUrl(url),
     );
   }
 }
