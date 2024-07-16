@@ -51,7 +51,7 @@ class AcademicSessionDetailPage extends StatelessWidget {
                 horizontal: 24,
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
                     session.title,
@@ -185,30 +185,46 @@ class AcademicSessionDetailPage extends StatelessWidget {
                       ),
                       title: Text(
                         location,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              decoration: TextDecoration.underline,
+                            ),
                       ),
                     ),
-                    const Gap(8),
                     Row(
                       children: [
-                        const Icon(Icons.calendar_month_outlined),
-                        const Gap(4),
-                        Text(
-                          date,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(color: bodyText),
+                        Expanded(
+                          child: ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            dense: true,
+                            visualDensity: VisualDensity.compact,
+                            leading: const Icon(Icons.calendar_month_outlined),
+                            title: Text(
+                              date,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    color: bodyText,
+                                  ),
+                            ),
+                          ),
                         ),
-                        const Gap(16),
-                        const Icon(Icons.access_time_outlined),
-                        const Gap(4),
-                        Text(
-                          hour,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(color: bodyText),
+                        Expanded(
+                          child: ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            dense: true,
+                            visualDensity: VisualDensity.compact,
+                            leading: const Icon(Icons.access_time_outlined),
+                            title: Text(
+                              hour,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    color: bodyText,
+                                  ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
